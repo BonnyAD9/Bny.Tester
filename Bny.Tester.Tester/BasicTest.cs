@@ -18,9 +18,11 @@ class BasicTest
         a.Assert(t.Test(Function1));
         a.Assert(!t.Test(Function2));
         a.Assert(!t.Test(Function3));
-        a.Assert(t.Count() == 6);
+        a.Assert(!t.Test(Function4));
+        a.Assert(t.Count() == 7);
         a.Assert(t.Where(p => p.Success).Count() == 3);
         a.Assert(t.Where(p => p.Call == "3 < 5").Count() == 2);
+        a.Assert(t.Where(p => p.Call == "ArrayTypeMismatchException").Count() == 1);
 
         var laArr = Enum.GetValues<LogAmount>().Select(p =>
         {
@@ -31,6 +33,7 @@ class BasicTest
             t.Test(Function1, p);
             t.Test(Function2, p);
             t.Test(Function3, p);
+            t.Test(Function4, p);
 
             return (p, sw.ToString().Length);
         }).ToArray();
@@ -58,6 +61,11 @@ class BasicTest
         {
             a.Assert(3 > 5);
             a.Assert(9 < 5);
+        }
+
+        static void Function4(Asserter a)
+        {
+            throw new ArrayTypeMismatchException();
         }
     }
 }
