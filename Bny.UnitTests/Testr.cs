@@ -2,23 +2,45 @@
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
 
 namespace Bny.UnitTests;
 
+/// <summary>
+/// Class for unit testing
+/// </summary>
 public class Testr : IEnumerable<Assertion>
 {
+    /// <summary>
+    /// The output for the results, stdout by default
+    /// </summary>
     public TextWriter Out { get; set; } = Console.Out;
-    public Asserter Asserter { get; init; } = new();
+    internal Asserter Asserter { get; init; } = new();
+
+    /// <summary>
+    /// Name of the test group
+    /// </summary>
     public string Name { get; init; }
     List<Assertion> Assertions { get; init; } = new();
+
+    /// <summary>
+    /// Determines whether the output should be formatted
+    /// </summary>
     public bool Formatted { get; init; } = true;
+
+    /// <summary>
+    /// True if all tests passed
+    /// </summary>
     public bool Success { get; private set; } = true;
 
     readonly string _success;
     readonly string _failure;
     readonly string _excepts;
 
+    /// <summary>
+    /// Creates new tester
+    /// </summary>
+    /// <param name="name">name of the test group</param>
+    /// <param name="formatted">true if the output should be formatted, otherwise false</param>
     public Testr(string name, bool formatted = true)
     {
         Name = name;
@@ -29,6 +51,13 @@ public class Testr : IEnumerable<Assertion>
         _excepts = Formatted ? $"[{Color.RedBg}{Color.Black}excepts{Color.Reset}] {Color.Yellow}" : "[excepts] ";
     }
 
+    /// <summary>
+    /// Executes the given test
+    /// </summary>
+    /// <param name="tf">Test to execute</param>
+    /// <param name="logAmount">How much to log</param>
+    /// <param name="caller">Name of the test, this is set automatically</param>
+    /// <returns>True if all the assertions in the test passed</returns>
     public bool Test(TestFunction tf, LogAmount logAmount = LogAmount.Default, [CallerArgumentExpression(nameof(tf))] string caller = "")
     {
         Asserter.Clear(caller);
@@ -65,12 +94,32 @@ public class Testr : IEnumerable<Assertion>
         return success;
     }
 
+    /// <summary>
+    /// Enumerates all the assertions
+    /// </summary>
+    /// <returns>Assertion enumerator</returns>
     public IEnumerator<Assertion> GetEnumerator() => Assertions.GetEnumerator();
     IEnumerator IEnumerable.GetEnumerator() => Assertions.GetEnumerator();
 
+    /// <summary>
+    /// Executes all the tests in the type
+    /// </summary>
+    /// <typeparam name="T">Type with the tests</typeparam>
+    /// <param name="logAmount">How much to log</param>
+    /// <param name="out">Test results output, null is stdout</param>
+    /// <param name="formatted">True if the output should be formatted, otherwise false</param>
+    /// <returns>Test with the summary</returns>
     public static Testr Test<T>(LogAmount logAmount = LogAmount.Default, TextWriter? @out = null, bool formatted = true)
         => Test(typeof(T), logAmount, @out, formatted);
 
+    /// <summary>
+    /// Executes all the tests in the type
+    /// </summary>
+    /// <param name="test">Type with the tests</param>
+    /// <param name="logAmount">How much to log</param>
+    /// <param name="out">Test results output, null is stdout</param>
+    /// <param name="formatted">True if the output should be formatted, otherwise false</param>
+    /// <returns></returns>
     public static Testr Test(Type test, LogAmount logAmount = LogAmount.Default, TextWriter? @out = null, bool formatted = true)
     {
         Testr t = new(test.Name, formatted);
@@ -102,6 +151,13 @@ public class Testr : IEnumerable<Assertion>
         return t;
     }
 
+    /// <summary>
+    /// Executes all the tests in all the types with the UnitTestAttribute
+    /// </summary>
+    /// <param name="logAmount">How much to log</param>
+    /// <param name="out">Test results output, null is stdout</param>
+    /// <param name="formatted">True if the output should be formatted</param>
+    /// <returns>Array of all the test results</returns>
     public static Testr[] TestAll(LogAmount logAmount = LogAmount.Default, TextWriter? @out = null, bool formatted = true)
     {
         var types = (from a in AppDomain.CurrentDomain.GetAssemblies() 
