@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 
 namespace Bny.UnitTests;
 
@@ -11,10 +12,20 @@ public class Testr : IEnumerable<Assertion>
     public Asserter Asserter { get; init; } = new();
     public string Name { get; init; }
     List<Assertion> Assertions { get; init; } = new();
+    public bool Formatted { get; init; } = true;
 
-    public Testr(string name)
+    readonly string _success;
+    readonly string _failure;
+    readonly string _excepts;
+
+    public Testr(string name, bool formatted = true)
     {
         Name = name;
+        Formatted = formatted;
+
+        _success = Formatted ? "[\u001b[92msuccess\u001b[0m]" : "[success]";
+        _failure = Formatted ? "[\u001b[91mfailure\u001b[0m]" : "[failure]";
+        _excepts = Formatted ? "[\u001b[101m\u001b[30mexcepts\u001b[0m] \u001b[93m" : "[excepts] ";
     }
 
     public bool Test(TestFunction tf, LogAmount logAmount = LogAmount.Default, [CallerArgumentExpression(nameof(tf))] string caller = "")
@@ -27,13 +38,13 @@ public class Testr : IEnumerable<Assertion>
             tf(Asserter);
 
             Out.WriteLine(Asserter.Success
-                ? $"[\x1b[92msuccess\x1b[0m] {Name}.{caller}"
-                : $"[\x1b[91mfailure\x1b[0m] {Name}.{caller}"
+                ? $"{_success} {Name}.{caller}"
+                : $"{_failure} {Name}.{caller}"
             );
         }
         catch (Exception ex)
         {
-            Out.WriteLine($"[\x1b[101m\x1b[30mexcepts\x1b[0m] \x1b[93m{ex.GetType().Name}\x1b[0m {Name}.{caller}");
+            Out.WriteLine($"{_excepts}{ex.GetType().Name}{(Formatted ? "\x1b[0m" : "")} {Name}.{caller}");
             var frame = new StackTrace(ex).GetFrame(0);
             Asserter.Assert(false, ex.GetType().Name, frame is null ? 0 : frame.GetFileLineNumber(), frame?.GetFileName() ?? "");
             exs = false;
@@ -45,7 +56,7 @@ public class Testr : IEnumerable<Assertion>
             return Asserter.Success && exs;
 
         foreach (var a in Asserter)
-            Out.WriteLine($"  {a}");
+            Out.WriteLine($"  {a.ToString(Formatted ? "F" : null, null)}");
 
         return Asserter.Success && exs;
     }
@@ -53,14 +64,16 @@ public class Testr : IEnumerable<Assertion>
     public IEnumerator<Assertion> GetEnumerator() => Assertions.GetEnumerator();
     IEnumerator IEnumerable.GetEnumerator() => Assertions.GetEnumerator();
 
-    public static Testr Test<T>(LogAmount logAmount = LogAmount.Default, TextWriter? @out = null)
-        => Test(typeof(T), logAmount, @out);
+    public static Testr Test<T>(LogAmount logAmount = LogAmount.Default, TextWriter? @out = null, bool formatted = true)
+        => Test(typeof(T), logAmount, @out, formatted);
 
-    public static Testr Test(Type test, LogAmount logAmount = LogAmount.Default, TextWriter? @out = null)
+    public static Testr Test(Type test, LogAmount logAmount = LogAmount.Default, TextWriter? @out = null, bool formatted = true)
     {
-        Testr t = new(test.Name);
+        Testr t = new(test.Name, formatted);
         if (@out is not null)
             t.Out = @out;
+
+        string format = formatted ? "[\x1b[101m\x1b[30merrored\x1b[0m] \x1b[93{0}\x1b[0m invalid signature" : "[errored] {0} invalid sigmature";
 
         const BindingFlags bf = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
 
@@ -73,7 +86,7 @@ public class Testr : IEnumerable<Assertion>
             }
             catch
             {
-                t.Out.WriteLine($"[\x1b[101m\x1b[30merrored\x1b[0m] \x1b[93{m.Name}\x1b[0m invalid signature");
+                t.Out.WriteLine(format, m.Name);
                 t.Assertions.Add(new(false, m.Name, 0, ""));
                 continue;
             }

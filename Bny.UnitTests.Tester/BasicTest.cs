@@ -5,7 +5,7 @@ class BasicTest
     [UnitTest]
     public static void Test_Tester(Asserter a)
     {
-        Testr t = new(nameof(Test_Tester));
+        Testr t = new(nameof(Test_Tester), false);
         StringWriter sw = new();
         t.Out = sw;
 
@@ -20,7 +20,7 @@ class BasicTest
 
         var laArr = Enum.GetValues<LogAmount>().Select(p =>
         {
-            Testr t = new("Test_Tester_LogAmount");
+            Testr t = new("Test_Tester_LogAmount", false);
             StringWriter sw = new();
             t.Out = sw;
 

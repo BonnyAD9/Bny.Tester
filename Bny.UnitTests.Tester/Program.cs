@@ -2,8 +2,9 @@
 
 TestAll();
 
-static void TestAll()
+static void TestAll(TextWriter? @out = null, bool formatted = true)
 {
-    Testr.Test<BasicTest>();
-    Testr.Test<AttributeTest>();
+    @out ??= Console.Out;
+    Testr.Test<BasicTest>(@out: @out, formatted: formatted);
+    Testr.Test<AttributeTest>(@out: @out, formatted: formatted);
 }

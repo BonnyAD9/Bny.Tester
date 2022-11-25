@@ -5,7 +5,7 @@ class AttributeTest
     [UnitTest]
     public static void Test_UnitTestAttribute(Asserter a)
     {
-        Testr t = Testr.Test<TestClass>(@out: new StringWriter());
+        Testr t = Testr.Test<TestClass>(@out: new StringWriter(), formatted: false);
 
         a.Assert(t.Count() == 7);
         a.Assert(t.Count(p => p.Success) == 3);
@@ -15,7 +15,7 @@ class AttributeTest
         var laArr = Enum.GetValues<LogAmount>().Select(p =>
         {
             StringWriter sw = new();
-            Testr.Test<TestClass>(p, sw);
+            Testr.Test<TestClass>(p, sw, formatted: false);
             return (p, sw.ToString().Length);
         }).ToArray();
 
@@ -26,7 +26,7 @@ class AttributeTest
         a.Assert(minlen < deflen);
         a.Assert(deflen < alllen);
 
-        t = Testr.Test<WrongTestClass>(@out: new StringWriter());
+        t = Testr.Test<WrongTestClass>(@out: new StringWriter(), formatted: false);
 
         a.Assert(t.Count(p => p.Call == "WrongTestFunction") == 1);
     }
@@ -64,7 +64,7 @@ class AttributeTest
     class WrongTestClass
     {
         [UnitTest]
-        public void WrongTestFunction() { }
+        public static void WrongTestFunction() { }
     }
 }
 
