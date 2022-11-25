@@ -15,23 +15,24 @@ public class Tester : IEnumerable<Assertion>
         Name = name;
     }
 
-    public bool Test(TestFunction tf, [CallerArgumentExpression(nameof(tf))] string name = "")
+    public bool Test(TestFunction tf, LogAmount logAmount = LogAmount.Default, [CallerArgumentExpression(nameof(tf))] string name = "")
     {
         Asserter.Clear(name);
         tf(Asserter);
         Assertions.AddRange(Asserter);
 
-        if (Asserter.Success)
-        {
-            Out.WriteLine($"[\x1b[92msuccess\x1b[0m] {Name}.{name}");
-            return true;
-        }
+        Out.WriteLine(Asserter.Success
+            ? $"[\x1b[92msuccess\x1b[0m] {Name}.{name}"
+            : $"[\x1b[91mfailure\x1b[0m] {Name}.{name}"
+        );
 
-        Out.WriteLine($"[\x1b[91mfailure\x1b[0m] {Name}.{name}");
+        if (logAmount == LogAmount.Minimal || (logAmount == LogAmount.Default && Asserter.Success))
+            return Asserter.Success;
+
         foreach (var a in Asserter)
             Out.WriteLine($"  {a}");
 
-        return false;
+        return Asserter.Success;
     }
 
     public IEnumerator<Assertion> GetEnumerator() => Assertions.GetEnumerator();

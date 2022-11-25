@@ -12,7 +12,8 @@ class BasicTest
     public static void Test_Tester(Asserter a)
     {
         Tester t = new(nameof(Test_Tester));
-        t.Out = new StringWriter();
+        StringWriter sw = new();
+        t.Out = sw;
 
         a.Assert(t.Test(Function1));
         a.Assert(!t.Test(Function2));
@@ -20,6 +21,26 @@ class BasicTest
         a.Assert(t.Count() == 6);
         a.Assert(t.Where(p => p.Success).Count() == 3);
         a.Assert(t.Where(p => p.Call == "3 < 5").Count() == 2);
+
+        var laArr = Enum.GetValues<LogAmount>().Select(p =>
+        {
+            Tester t = new("Test_Tester_LogAmount");
+            StringWriter sw = new();
+            t.Out = sw;
+
+            t.Test(Function1, p);
+            t.Test(Function2, p);
+            t.Test(Function3, p);
+
+            return (p, sw.ToString().Length);
+        }).ToArray();
+
+        int minlen = laArr.First(p => p.p == LogAmount.Minimal).Length;
+        int deflen = laArr.First(p => p.p == LogAmount.Default).Length;
+        int alllen = laArr.First(p => p.p == LogAmount.All).Length;
+
+        a.Assert(minlen < deflen);
+        a.Assert(deflen < alllen);
 
         static void Function1(Asserter a)
         {
