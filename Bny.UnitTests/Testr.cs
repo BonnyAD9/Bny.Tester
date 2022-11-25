@@ -13,6 +13,7 @@ public class Testr : IEnumerable<Assertion>
     public string Name { get; init; }
     List<Assertion> Assertions { get; init; } = new();
     public bool Formatted { get; init; } = true;
+    public bool Success { get; private set; } = true;
 
     readonly string _success;
     readonly string _failure;
@@ -50,15 +51,18 @@ public class Testr : IEnumerable<Assertion>
             exs = false;
         }
 
+        bool success = Asserter.Success && exs;
+        Success &= success;
+
         Assertions.AddRange(Asserter);
 
-        if (logAmount == LogAmount.Minimal || (logAmount == LogAmount.Default && Asserter.Success && exs))
-            return Asserter.Success && exs;
+        if (logAmount == LogAmount.Minimal || (logAmount == LogAmount.Default && success))
+            return success;
 
         foreach (var a in Asserter)
             Out.WriteLine($"  {a.ToString(Formatted ? "F" : null, null)}");
 
-        return Asserter.Success && exs;
+        return success;
     }
 
     public IEnumerator<Assertion> GetEnumerator() => Assertions.GetEnumerator();
@@ -88,6 +92,7 @@ public class Testr : IEnumerable<Assertion>
             {
                 t.Out.WriteLine(format, m.Name);
                 t.Assertions.Add(new(false, m.Name, 0, ""));
+                t.Success = false;
                 continue;
             }
 

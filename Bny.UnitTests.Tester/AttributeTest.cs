@@ -29,6 +29,7 @@ class AttributeTest
         t = Testr.Test<WrongTestClass>(@out: new StringWriter(), formatted: false);
 
         a.Assert(t.Count(p => p.Call == "WrongTestFunction") == 1);
+        a.Assert(!t.Success);
     }
 
     class TestClass

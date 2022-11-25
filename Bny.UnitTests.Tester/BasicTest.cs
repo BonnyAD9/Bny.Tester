@@ -10,9 +10,11 @@ class BasicTest
         t.Out = sw;
 
         a.Assert(t.Test(Function1));
+        a.Assert(t.Success);
         a.Assert(!t.Test(Function2));
         a.Assert(!t.Test(Function3));
         a.Assert(!t.Test(Function4));
+        a.Assert(!t.Success);
         a.Assert(t.Count() == 7);
         a.Assert(t.Count(p => p.Success) == 3);
         a.Assert(t.Count(p => p.Call == "3 < 5") == 2);
