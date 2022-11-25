@@ -24,9 +24,9 @@ public class Testr : IEnumerable<Assertion>
         Name = name;
         Formatted = formatted;
 
-        _success = Formatted ? "[\u001b[92msuccess\u001b[0m]" : "[success]";
-        _failure = Formatted ? "[\u001b[91mfailure\u001b[0m]" : "[failure]";
-        _excepts = Formatted ? "[\u001b[101m\u001b[30mexcepts\u001b[0m] \u001b[93m" : "[excepts] ";
+        _success = Formatted ? $"[{Color.Green}success{Color.Reset}]" : "[success]";
+        _failure = Formatted ? $"[{Color.Red}failure{Color.Reset}]" : "[failure]";
+        _excepts = Formatted ? $"[{Color.RedBg}{Color.Black}excepts{Color.Reset}] {Color.Yellow}" : "[excepts] ";
     }
 
     public bool Test(TestFunction tf, LogAmount logAmount = LogAmount.Default, [CallerArgumentExpression(nameof(tf))] string caller = "")
@@ -45,7 +45,7 @@ public class Testr : IEnumerable<Assertion>
         }
         catch (Exception ex)
         {
-            Out.WriteLine($"{_excepts}{ex.GetType().Name}{(Formatted ? "\x1b[0m" : "")} {Name}.{caller}");
+            Out.WriteLine($"{_excepts}{ex.GetType().Name}{(Formatted ? Color.Reset : "")} {Name}.{caller}");
             var frame = new StackTrace(ex).GetFrame(0);
             Asserter.Assert(false, ex.GetType().Name, frame is null ? 0 : frame.GetFileLineNumber(), frame?.GetFileName() ?? "");
             exs = false;
@@ -77,7 +77,7 @@ public class Testr : IEnumerable<Assertion>
         if (@out is not null)
             t.Out = @out;
 
-        string format = formatted ? "[\x1b[101m\x1b[30merrored\x1b[0m] \x1b[93{0}\x1b[0m invalid signature" : "[errored] {0} invalid sigmature";
+        string format = formatted ? $"[{Color.RedBg}{Color.Black}errored{Color.Reset}] {Color.Yellow}{{0}}{Color.Reset} invalid signature" : "[errored] {0} invalid sigmature";
 
         const BindingFlags bf = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
 

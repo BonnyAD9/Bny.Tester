@@ -1,4 +1,6 @@
-﻿namespace Bny.UnitTests;
+﻿using System.Drawing;
+
+namespace Bny.UnitTests;
 
 public readonly struct Assertion : IFormattable
 {
@@ -23,8 +25,8 @@ public readonly struct Assertion : IFormattable
     public string ToString(string? format, IFormatProvider? formatProvider) => format switch
     {
         "F" => Success
-            ? $"[\x1b[92msuccess\x1b[0m] \x1b[93m{Call}\x1b[0m"
-            : $"[\x1b[91mfailure\x1b[0m] \x1b[93m{Call}\x1b[0m (in {File}:{LineNumber}::)",
+            ? $"[{Color.Green}success{Color.Reset}] {Color.Yellow}{Call}{Color.Reset}"
+            : $"[{Color.Red}failure{Color.Reset}] {Color.Yellow}{Call}{Color.Reset} (in {File}:{LineNumber}::)",
         _ => ToString()
     };
 }
