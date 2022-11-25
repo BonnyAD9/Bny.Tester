@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Bny.Tester\Bny.Tester.csproj" />
+    <ProjectReference Include="..\Bny.UnitTests\Bny.UnitTests.csproj" />
   </ItemGroup>
 
 </Project>

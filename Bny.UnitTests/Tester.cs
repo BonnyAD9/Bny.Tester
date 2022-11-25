@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-namespace Bny.Tester;
+namespace Bny.UnitTests;
 
 public class Tester : IEnumerable<Assertion>
 {

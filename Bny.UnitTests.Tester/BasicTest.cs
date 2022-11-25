@@ -1,5 +1,4 @@
-﻿
-using Bny.Tester;
+﻿using Bny.UnitTests;
 
 class BasicTest
 {

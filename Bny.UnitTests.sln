@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bny.Tester", "Bny.Tester\Bny.Tester.csproj", "{713A9852-FB31-443A-BFBA-F3E2BF8B4EDF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bny.UnitTests", "Bny.UnitTests\Bny.UnitTests.csproj", "{713A9852-FB31-443A-BFBA-F3E2BF8B4EDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bny.Tester.Tester", "Bny.Tester.Tester\Bny.Tester.Tester.csproj", "{43D0429B-6AF8-417B-8E89-AA0468658C22}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bny.UnitTests.Tester", "Bny.UnitTests.Tester\Bny.UnitTests.Tester.csproj", "{43D0429B-6AF8-417B-8E89-AA0468658C22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,4 @@
-﻿namespace Bny.Tester;
+﻿namespace Bny.UnitTests;
 
 public readonly struct Assertion
 {

@@ -1,3 +1,3 @@
-﻿namespace Bny.Tester;
+﻿namespace Bny.UnitTests;
 
 public delegate void TestFunction(Asserter a);
