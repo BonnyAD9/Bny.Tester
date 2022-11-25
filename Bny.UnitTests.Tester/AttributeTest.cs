@@ -1,18 +1,12 @@
 ﻿using Bny.UnitTests;
 
-class BasicTest
+class AttributeTest
 {
     [UnitTest]
-    public static void Test_Tester(Asserter a)
+    public static void Test_UnitTestAttribute(Asserter a)
     {
-        Testr t = new(nameof(Test_Tester));
-        StringWriter sw = new();
-        t.Out = sw;
+        Testr t = Testr.Test<TestClass>(@out: new StringWriter());
 
-        a.Assert(t.Test(Function1));
-        a.Assert(!t.Test(Function2));
-        a.Assert(!t.Test(Function3));
-        a.Assert(!t.Test(Function4));
         a.Assert(t.Count() == 7);
         a.Assert(t.Where(p => p.Success).Count() == 3);
         a.Assert(t.Where(p => p.Call == "3 < 5").Count() == 2);
@@ -20,15 +14,8 @@ class BasicTest
 
         var laArr = Enum.GetValues<LogAmount>().Select(p =>
         {
-            Testr t = new("Test_Tester_LogAmount");
             StringWriter sw = new();
-            t.Out = sw;
-
-            t.Test(Function1, p);
-            t.Test(Function2, p);
-            t.Test(Function3, p);
-            t.Test(Function4, p);
-
+            Testr.Test<TestClass>(p, sw);
             return (p, sw.ToString().Length);
         }).ToArray();
 
@@ -39,27 +26,46 @@ class BasicTest
         a.Assert(minlen < deflen);
         a.Assert(deflen < alllen);
 
-        static void Function1(Asserter a)
+        t = Testr.Test<WrongTestClass>(@out: new StringWriter());
+
+        a.Assert(t.Count(p => p.Call == "WrongTestFunction") == 1);
+    }
+
+    class TestClass
+    {
+        [UnitTest]
+        public static void Function1(Asserter a)
         {
             a.Assert(3 < 5);
             a.Assert(4 < 5);
         }
 
-        static void Function2(Asserter a)
+        [UnitTest]
+        public static void Function2(Asserter a)
         {
             a.Assert(3 < 5);
             a.Assert(9 < 5);
         }
 
-        static void Function3(Asserter a)
+        [UnitTest]
+        public static void Function3(Asserter a)
         {
             a.Assert(3 > 5);
             a.Assert(9 < 5);
         }
 
-        static void Function4(Asserter a)
+        [UnitTest]
+        public static void Function4(Asserter a)
         {
             throw new ArrayTypeMismatchException();
         }
     }
+
+    class WrongTestClass
+    {
+        [UnitTest]
+        public void WrongTestFunction() { }
+    }
 }
+
+
