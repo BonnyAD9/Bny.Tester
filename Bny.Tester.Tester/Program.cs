@@ -1,0 +1,1 @@
+﻿BasicTest.TestAll();
