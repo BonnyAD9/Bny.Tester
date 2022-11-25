@@ -1,12 +1,14 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Collections;
+using System.Runtime.CompilerServices;
 
 namespace Bny.Tester;
 
-public class Tester
+public class Tester : IEnumerable<Assertion>
 {
     public TextWriter Out { get; set; } = Console.Out;
     public Asserter Asserter { get; init; } = new();
     public string Name { get; init; }
+    List<Assertion> Assertions { get; init; } = new();
 
     public Tester(string name)
     {
@@ -15,8 +17,9 @@ public class Tester
 
     public bool Test(TestFunction tf, [CallerArgumentExpression(nameof(tf))] string name = "")
     {
-        Asserter.Clear();
+        Asserter.Clear(name);
         tf(Asserter);
+        Assertions.AddRange(Asserter);
 
         if (Asserter.Success)
         {
@@ -30,4 +33,7 @@ public class Tester
 
         return false;
     }
+
+    public IEnumerator<Assertion> GetEnumerator() => Assertions.GetEnumerator();
+    IEnumerator IEnumerable.GetEnumerator() => Assertions.GetEnumerator();
 }

@@ -6,6 +6,7 @@ public readonly struct Assertion
     public string Call { get; init; }
     public int LineNumber { get; init; }
     public string File { get; init; }
+    public string Caller { get; init; } = "";
 
     public Assertion(bool success, string call, int lineNumber, string file)
     {

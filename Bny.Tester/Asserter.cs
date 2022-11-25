@@ -10,19 +10,22 @@ public class Asserter : IEnumerable<Assertion>
 
     public bool Success { get; private set; } = true;
 
+    internal string Caller { get; private set; } = "";
+
     [EditorBrowsable]
     public void Assert(bool assertion,
         [CallerArgumentExpression(nameof(assertion))] string call = "",
         [CallerLineNumber] int lineNumber = 0,
         [CallerFilePath] string file = "")
     {
-        Assertions.Add(new(assertion, call, lineNumber, file));
+        Assertions.Add(new(assertion, call, lineNumber, file) { Caller = Caller });
         Success &= assertion;
     }
 
 
-    internal void Clear()
+    internal void Clear(string newCaller)
     {
+        Caller = newCaller;
         Assertions.Clear();
         Success = true;
     }

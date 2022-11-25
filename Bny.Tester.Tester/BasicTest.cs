@@ -17,6 +17,9 @@ class BasicTest
         a.Assert(t.Test(Test_Tester_Function1));
         a.Assert(!t.Test(Test_Tester_Function2));
         a.Assert(!t.Test(Test_Tester_Function3));
+        a.Assert(t.Count() == 6);
+        a.Assert(t.Where(p => p.Success).Count() == 3);
+        a.Assert(t.Where(p => p.Call == "3 < 5").Count() == 2);
     }
 
     public static void Test_Tester_Function1(Asserter a)
