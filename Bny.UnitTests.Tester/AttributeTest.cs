@@ -1,6 +1,7 @@
-﻿using Bny.UnitTests;
+﻿namespace Bny.UnitTests.Tester;
 
-class AttributeTest
+[UnitTest]
+public class AttributeTest
 {
     [UnitTest]
     public static void Test_UnitTestAttribute(Asserter a)

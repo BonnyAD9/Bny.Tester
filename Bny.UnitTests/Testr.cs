@@ -101,4 +101,20 @@ public class Testr : IEnumerable<Assertion>
 
         return t;
     }
+
+    public static Testr[] TestAll(LogAmount logAmount = LogAmount.Default, TextWriter? @out = null, bool formatted = true)
+    {
+        var types = (from a in AppDomain.CurrentDomain.GetAssemblies() 
+                     from t in a.GetTypes()
+                     where t.GetCustomAttribute<UnitTestAttribute>() is not null
+                     select t).ToList();
+
+        var tests = new Testr[types.Count];
+        @out ??= Console.Out;
+
+        for (int i = 0; i < types.Count; ++i)
+            tests[i] = Test(types[i], logAmount, @out, formatted);
+
+        return tests;
+    }
 }
