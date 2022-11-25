@@ -34,7 +34,7 @@ public class Tester : IEnumerable<Assertion>
         {
             Out.WriteLine($"[\x1b[101m\x1b[30mexcepts\x1b[0m] \x1b[93m{ex.GetType().Name}\x1b[0m {Name}.{name}");
             var frame = new StackTrace(ex).GetFrame(0);
-            Asserter.Assert(false, ex.GetType().Name, frame is null ? -1 : frame.GetFileLineNumber(), frame?.GetFileName() ?? "");
+            Asserter.Assert(false, ex.GetType().Name, frame is null ? 0 : frame.GetFileLineNumber(), frame?.GetFileName() ?? "");
             exs = false;
         }
 
