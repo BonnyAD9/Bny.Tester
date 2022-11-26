@@ -11,7 +11,7 @@ Bny.UnitTests is a library that makes unit testing in C# simpler.
 
 ### Prepare your test classes
 ```C#
-[UnitTest] // marh test classes with the [UnitTest] attribute
+[UnitTest] // mark test classes with the [UnitTest] attribute
 class TestSomething
 {
     [UnitTest] // mark test functions with the [UnitTest] attribute
