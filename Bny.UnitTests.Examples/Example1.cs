@@ -28,7 +28,7 @@ internal class Example1
     static void Test_BubbleSort_Sort(Asserter a)
     {
         // Generate test data
-        int[] array = Enumerable.Range(0, 100).Select(_ => Random.Shared.Next()).ToArray();
+        int[] array = TestData.GenerateRngInt<int>(100);
         int[] copy = array.ToArray();
 
         // run the function
@@ -64,7 +64,7 @@ internal class Example1
     // tests binary search
     static void Test_BinarySearch(Asserter a)
     {
-        int[] arr = Enumerable.Range(0, 100).ToArray();
+        int[] arr = TestData.Generate(100, i => i);
 
         a.Assert(ArrayOperations.BinarySearch(arr, 5) == 5);
         a.Assert(ArrayOperations.BinarySearch(arr, 125) == -1);
