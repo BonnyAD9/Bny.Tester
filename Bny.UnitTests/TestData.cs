@@ -67,8 +67,10 @@ public static class TestData
     /// <param name="seed">Random number generator seed, 0 for random seed</param>
     /// <param name="min">Lower boundry of numbers to generate</param>
     /// <param name="max">Upper boundry of numbers to generate</param>
-    public static void FillRngInt<T>(Span<T> span, int seed = 0, long min = 0, long max = long.MaxValue) where T : INumberBase<T>
+    public static void FillRngInt<T>(Span<T> span, int seed = 0, long min = 0, long max = long.MaxValue) where T : INumberBase<T>, IMinMaxValue<T>
     {
+        if (max == long.MaxValue)
+            max = long.CreateTruncating(T.MaxValue);
         Random r = seed == 0 ? Random.Shared : new Random(seed);
         for (int i = 0; i < span.Length; ++i)
             span[i] = T.CreateTruncating(r.NextInt64(min, max));
@@ -99,7 +101,7 @@ public static class TestData
     /// <param name="min">Lower boundary of the generated values</param>
     /// <param name="max">Upper boundary of the generated values</param>
     /// <returns>New array with random integers</returns>
-    public static T[] GenerateRngInt<T>(int length, int seed = 0, long min = 0, long max = long.MaxValue) where T : INumberBase<T>
+    public static T[] GenerateRngInt<T>(int length, int seed = 0, long min = 0, long max = long.MaxValue) where T : INumberBase<T>, IMinMaxValue<T>
     {
         T[] arr = new T[length];
         FillRngInt<T>(arr, seed, min, max);
