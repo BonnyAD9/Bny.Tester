@@ -7,3 +7,6 @@ In this folder you can find examples of usage of the library.
 - **Example2.cs** - second example, testing test classes
 - **Example3.cs** - third example, preparing testing classes and running all the tests at once
 - **Program.cs** - running the three examples, and examples of how varios parameters change the behaviour
+
+## The formatted parameter example console output
+![image](https://user-images.githubusercontent.com/46282097/204106314-20e6ecae-6554-4583-852e-623693e772be.png)
