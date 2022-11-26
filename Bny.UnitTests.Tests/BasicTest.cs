@@ -1,4 +1,4 @@
-﻿namespace Bny.UnitTests.Tester;
+﻿namespace Bny.UnitTests.Tests;
 
 [UnitTest]
 public class BasicTest
@@ -6,7 +6,7 @@ public class BasicTest
     [UnitTest]
     public static void Test_Tester(Asserter a)
     {
-        Testr t = new(nameof(Test_Tester), false);
+        Tester t = new(nameof(Test_Tester), false);
         StringWriter sw = new();
         t.Out = sw;
 
@@ -23,7 +23,7 @@ public class BasicTest
 
         var laArr = Enum.GetValues<LogAmount>().Select(p =>
         {
-            Testr t = new("Test_Tester_LogAmount", false);
+            Tester t = new("Test_Tester_LogAmount", false);
             StringWriter sw = new();
             t.Out = sw;
 

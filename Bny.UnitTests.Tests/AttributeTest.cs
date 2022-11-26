@@ -1,4 +1,4 @@
-﻿namespace Bny.UnitTests.Tester;
+﻿namespace Bny.UnitTests.Tests;
 
 [UnitTest]
 public class AttributeTest
@@ -6,7 +6,7 @@ public class AttributeTest
     [UnitTest]
     public static void Test_UnitTestAttribute(Asserter a)
     {
-        Testr t = Testr.Test<TestClass>(@out: new StringWriter(), formatted: false);
+        Tester t = Tester.Test<TestClass>(@out: new StringWriter(), formatted: false);
 
         a.Assert(t.Count() == 7);
         a.Assert(t.Count(p => p.Success) == 3);
@@ -16,7 +16,7 @@ public class AttributeTest
         var laArr = Enum.GetValues<LogAmount>().Select(p =>
         {
             StringWriter sw = new();
-            Testr.Test<TestClass>(p, sw, formatted: false);
+            Tester.Test<TestClass>(p, sw, formatted: false);
             return (p, sw.ToString().Length);
         }).ToArray();
 
@@ -27,7 +27,7 @@ public class AttributeTest
         a.Assert(minlen < deflen);
         a.Assert(deflen < alllen);
 
-        t = Testr.Test<WrongTestClass>(@out: new StringWriter(), formatted: false);
+        t = Tester.Test<WrongTestClass>(@out: new StringWriter(), formatted: false);
 
         a.Assert(t.Count(p => p.Call == "WrongTestFunction") == 1);
         a.Assert(!t.Success);

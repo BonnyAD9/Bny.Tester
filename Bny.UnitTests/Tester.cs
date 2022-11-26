@@ -8,7 +8,7 @@ namespace Bny.UnitTests;
 /// <summary>
 /// Class for unit testing
 /// </summary>
-public class Testr : IEnumerable<Assertion>
+public class Tester : IEnumerable<Assertion>
 {
     /// <summary>
     /// The output for the results, stdout by default
@@ -41,7 +41,7 @@ public class Testr : IEnumerable<Assertion>
     /// </summary>
     /// <param name="name">name of the test group</param>
     /// <param name="formatted">true if the output should be formatted, otherwise false</param>
-    public Testr(string name, bool formatted = true)
+    public Tester(string name, bool formatted = true)
     {
         Name = name;
         Formatted = formatted;
@@ -109,7 +109,7 @@ public class Testr : IEnumerable<Assertion>
     /// <param name="out">Test results output, null is stdout</param>
     /// <param name="formatted">True if the output should be formatted, otherwise false</param>
     /// <returns>Test with the summary</returns>
-    public static Testr Test<T>(LogAmount logAmount = LogAmount.Default, TextWriter? @out = null, bool formatted = true)
+    public static Tester Test<T>(LogAmount logAmount = LogAmount.Default, TextWriter? @out = null, bool formatted = true)
         => Test(typeof(T), logAmount, @out, formatted);
 
     /// <summary>
@@ -120,9 +120,9 @@ public class Testr : IEnumerable<Assertion>
     /// <param name="out">Test results output, null is stdout</param>
     /// <param name="formatted">True if the output should be formatted, otherwise false</param>
     /// <returns></returns>
-    public static Testr Test(Type test, LogAmount logAmount = LogAmount.Default, TextWriter? @out = null, bool formatted = true)
+    public static Tester Test(Type test, LogAmount logAmount = LogAmount.Default, TextWriter? @out = null, bool formatted = true)
     {
-        Testr t = new(test.Name, formatted);
+        Tester t = new(test.Name, formatted);
         if (@out is not null)
             t.Out = @out;
 
@@ -158,14 +158,14 @@ public class Testr : IEnumerable<Assertion>
     /// <param name="out">Test results output, null is stdout</param>
     /// <param name="formatted">True if the output should be formatted</param>
     /// <returns>Array of all the test results</returns>
-    public static Testr[] TestAll(LogAmount logAmount = LogAmount.Default, TextWriter? @out = null, bool formatted = true)
+    public static Tester[] TestAll(LogAmount logAmount = LogAmount.Default, TextWriter? @out = null, bool formatted = true)
     {
         var types = (from a in AppDomain.CurrentDomain.GetAssemblies() 
                      from t in a.GetTypes()
                      where t.GetCustomAttribute<UnitTestAttribute>() is not null
                      select t).ToList();
 
-        var tests = new Testr[types.Count];
+        var tests = new Tester[types.Count];
         @out ??= Console.Out;
 
         for (int i = 0; i < types.Count; ++i)
