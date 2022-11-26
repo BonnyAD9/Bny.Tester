@@ -54,6 +54,10 @@ Tester.TestAll();
 (Default parameters)
 ![image](https://user-images.githubusercontent.com/46282097/204106751-99cbf564-8279-467b-9e68-a2687780a0b0.png)
 
+## How to get it
+This library is available as a [NuGet Package](https://www.nuget.org/packages/Bny.UnitTests/)
+
 ## Links
 - **Author:** [BonnyAD9](https://github.com/BonnyAD9)
 - **Github Repository:** [Bny.UnitTests](https://github.com/BonnyAD9/Bny.UnitTests)
+- **NuGet Package:** [Bny.UnitTests](https://www.nuget.org/packages/Bny.UnitTests/)
