@@ -14,7 +14,7 @@ internal static class Color
     public const string White = "\x1b[37m";
 
     public const string BlackBg = "\x1b[40m";
-    public const string RedBg = "\x1b[101";
+    public const string RedBg = "\x1b[101m";
     public const string GreenBg = "\x1b[102m";
     public const string YellowBg = "\x1b[103m";
     public const string BlueBg = "\x1b[104m";
