@@ -52,7 +52,7 @@ Tester.TestAll();
 
 ## Example output
 (Default parameters)
-![image](https://user-images.githubusercontent.com/46282097/204106751-99cbf564-8279-467b-9e68-a2687780a0b0.png)
+![image](https://user-images.githubusercontent.com/46282097/204138348-4fbbebc5-bb2b-45ab-b6b6-37771271a8ca.png)
 
 ## How to get it
 This library is available as a [NuGet Package](https://www.nuget.org/packages/Bny.UnitTests/)
