@@ -9,4 +9,4 @@ In this folder you can find examples of usage of the library.
 - **Program.cs** - running the three examples, and examples of how varios parameters change the behaviour
 
 ## The formatted parameter example console output
-![image](https://user-images.githubusercontent.com/46282097/204106314-20e6ecae-6554-4583-852e-623693e772be.png)
+![image](https://user-images.githubusercontent.com/46282097/204138385-7e470f15-625f-4428-9ab6-cef2f04e9a83.png)
