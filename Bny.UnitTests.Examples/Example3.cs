@@ -29,11 +29,7 @@ internal class Example3
             ArrayOperations.BubbleSort<int>(array, (a, b) => a - b);
 
             // thest whether the array is sorted
-            bool isSorted = true;
-            for (int i = 1; i < array.Length; i++)
-                isSorted &= array[i - 1] < array[i];
-
-            a.Assert(isSorted);
+            a.Assert(Check.AllNeighbours(array, (a, b) => a < b));
 
             // test whether the array contains the same elements
             bool hasAll = true;

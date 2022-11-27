@@ -12,29 +12,29 @@ Example3.Run();
 /* Standard output:
 Example 1:
 [failure] ArrayOperationsTests.Test_BubbleSort_Sort
-  [success] isSorted
-  [failure] hasAll (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example1.cs:49::)
+  [success] Check.AllNeighbours(array, (a, b) => a < b)
+  [failure] hasAll (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example1.cs:45::)
 [failure] ArrayOperationsTests.Test_BubbleSort_Stable
-  [failure] arr[1].Char == 'd' && arr[2].Char == 'h' (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example1.cs:60::)
-  [failure] arr[5].Char == 'b' && arr[6].Char == 'f' (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example1.cs:61::)
+  [failure] arr[1].Char == 'd' && arr[2].Char == 'h' (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example1.cs:56::)
+  [failure] arr[5].Char == 'b' && arr[6].Char == 'f' (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example1.cs:57::)
 [success] ArrayOperationsTests.Test_BinarySearch
 [success] MyMathTests.Test_Pow
 Example 2:
 [failure] ArrayOperationsTests.Test_BubbleSort_Sort
-  [success] isSorted
-  [failure] hasAll (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example2.cs:43::)
+  [success] Check.AllNeighbours(array, (a, b) => a < b)
+  [failure] hasAll (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example2.cs:39::)
 [failure] ArrayOperationsTests.Test_BubbleSort_Stable
-  [failure] arr[1].Char == 'd' && arr[2].Char == 'h' (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example2.cs:55::)
-  [failure] arr[5].Char == 'b' && arr[6].Char == 'f' (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example2.cs:56::)
+  [failure] arr[1].Char == 'd' && arr[2].Char == 'h' (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example2.cs:51::)
+  [failure] arr[5].Char == 'b' && arr[6].Char == 'f' (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example2.cs:52::)
 [success] ArrayOperationsTests.Test_BinarySearch
 [success] MyMathTests.Test_Pow
 Example 3:
 [failure] ArrayOperationsTests.Test_BubbleSort_Sort
-  [success] isSorted
-  [failure] hasAll (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example3.cs:43::)
+  [success] Check.AllNeighbours(array, (a, b) => a < b)
+  [failure] hasAll (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example3.cs:39::)
 [failure] ArrayOperationsTests.Test_BubbleSort_Stable
-  [failure] arr[1].Char == 'd' && arr[2].Char == 'h' (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example3.cs:55::)
-  [failure] arr[5].Char == 'b' && arr[6].Char == 'f' (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example3.cs:56::)
+  [failure] arr[1].Char == 'd' && arr[2].Char == 'h' (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example3.cs:51::)
+  [failure] arr[5].Char == 'b' && arr[6].Char == 'f' (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example3.cs:52::)
 [success] ArrayOperationsTests.Test_BinarySearch
 [success] MyMathTests.Test_Pow
  */
@@ -64,20 +64,20 @@ logAmount = LogAmount.Minimal:
 [success] MyMathTests.Test_Pow
 logAmount = LogAmount.Default:
 [failure] ArrayOperationsTests.Test_BubbleSort_Sort
-  [success] isSorted
-  [failure] hasAll (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example3.cs:43::)
+  [success] Check.AllNeighbours(array, (a, b) => a < b)
+  [failure] hasAll (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example3.cs:39::)
 [failure] ArrayOperationsTests.Test_BubbleSort_Stable
-  [failure] arr[1].Char == 'd' && arr[2].Char == 'h' (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example3.cs:55::)
-  [failure] arr[5].Char == 'b' && arr[6].Char == 'f' (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example3.cs:56::)
+  [failure] arr[1].Char == 'd' && arr[2].Char == 'h' (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example3.cs:51::)
+  [failure] arr[5].Char == 'b' && arr[6].Char == 'f' (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example3.cs:52::)
 [success] ArrayOperationsTests.Test_BinarySearch
 [success] MyMathTests.Test_Pow
 logAmount = LogAmount.All:
 [failure] ArrayOperationsTests.Test_BubbleSort_Sort
-  [success] isSorted
-  [failure] hasAll (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example3.cs:43::)
+  [success] Check.AllNeighbours(array, (a, b) => a < b)
+  [failure] hasAll (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example3.cs:39::)
 [failure] ArrayOperationsTests.Test_BubbleSort_Stable
-  [failure] arr[1].Char == 'd' && arr[2].Char == 'h' (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example3.cs:55::)
-  [failure] arr[5].Char == 'b' && arr[6].Char == 'f' (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example3.cs:56::)
+  [failure] arr[1].Char == 'd' && arr[2].Char == 'h' (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example3.cs:51::)
+  [failure] arr[5].Char == 'b' && arr[6].Char == 'f' (in X:\Files\Programming\C#\Bny.UnitTests\Bny.UnitTests.Examples\Example3.cs:52::)
 [success] ArrayOperationsTests.Test_BinarySearch
   [success] ArrayOperations.BinarySearch(arr, 5) == 5
   [success] ArrayOperations.BinarySearch(arr, 125) == -1
