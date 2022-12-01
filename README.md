@@ -5,6 +5,7 @@ Bny.UnitTests is a library that makes unit testing in C# simpler.
 - **Bny.UnitTests** - the library
 - **Bny.UnitTests.Tests** - unit tests
 - **Bny.UnitTests.Examples** - example usage
+- **Documentation** - Doxygen generated documentation
 
 ## How to use
 - for detailed examples see **Bny.UnitTests.Examples**
