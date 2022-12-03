@@ -37,7 +37,7 @@ public class BasicTest
 
         int minlen = laArr.First(p => p.p == LogAmount.Minimal).Length;
         int deflen = laArr.First(p => p.p == LogAmount.Default).Length;
-        int alllen = laArr.First(p => p.p == LogAmount.All).Length;
+        int alllen = laArr.First(p => p.p == LogAmount.All    ).Length;
 
         a.Assert(minlen < deflen);
         a.Assert(deflen < alllen);

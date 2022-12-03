@@ -48,7 +48,8 @@ Example 3:
 Console.WriteLine("logAmount = LogAmount.Minimal:");
 Tester.TestAll(logAmount: LogAmount.Minimal);
 
-// LogAmount.Default logs individual asserts for function only if at least one of the asserts fails
+// LogAmount.Default logs individual asserts for function
+// only if at least one of the asserts fails
 Console.WriteLine("logAmount = LogAmount.Default:");
 Tester.TestAll(logAmount: LogAmount.Default);
 
@@ -90,7 +91,8 @@ logAmount = LogAmount.All:
 
 // The parameter @out sets the output stream
 
-// The parameter formatting determines whether the output is written in ANSI colors, or unformatted, this is true by default
+// The parameter formatting determines whether the output is written in
+// ANSI colors, or unformatted, this is true by default
 
 Console.WriteLine("Formatted:");
 Tester.TestAll(formatted: true);

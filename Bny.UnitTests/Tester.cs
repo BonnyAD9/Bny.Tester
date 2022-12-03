@@ -40,15 +40,26 @@ public class Tester : IEnumerable<Assertion>
     /// Creates new tester
     /// </summary>
     /// <param name="name">name of the test group</param>
-    /// <param name="formatted">true if the output should be formatted, otherwise false</param>
+    /// <param name="formatted">
+    /// true if the output should be formatted, otherwise false
+    /// </param>
     public Tester(string name, bool formatted = true)
     {
         Name = name;
         Formatted = formatted;
 
-        _success = Formatted ? $"[{Color.Green}success{Color.Reset}]" : "[success]";
-        _failure = Formatted ? $"[{Color.Red}failure{Color.Reset}]" : "[failure]";
-        _excepts = Formatted ? $"[{Color.RedBg}{Color.Black}excepts{Color.Reset}] {Color.Yellow}" : "[excepts] ";
+        if (Formatted)
+        {
+            _success = $"[{Color.Green}success{Color.Reset}]";
+            _failure = $"[{Color.Red}failure{Color.Reset}]";
+            _excepts = $"[{Color.RedBg}{Color.Black}excepts{Color.Reset}]" +
+                       $" {Color.Yellow}";
+            return;
+        }
+
+        _success = "[success]";
+        _failure = "[failure]";
+        _excepts = "[excepts]";
     }
 
     /// <summary>
@@ -56,9 +67,14 @@ public class Tester : IEnumerable<Assertion>
     /// </summary>
     /// <param name="tf">Test to execute</param>
     /// <param name="logAmount">How much to log</param>
-    /// <param name="caller">Name of the test, this is set automatically</param>
+    /// <param name="caller">
+    /// Name of the test, this is set automatically
+    /// </param>
     /// <returns>True if all the assertions in the test passed</returns>
-    public bool Test(TestFunction tf, LogAmount logAmount = LogAmount.Default, [CallerArgumentExpression(nameof(tf))] string caller = "")
+    public bool Test(
+        TestFunction tf                                          ,
+        LogAmount    logAmount = LogAmount.Default               ,
+        [CallerArgumentExpression(nameof(tf))] string caller = "")
     {
         Asserter.Clear(caller);
 
@@ -74,9 +90,17 @@ public class Tester : IEnumerable<Assertion>
         }
         catch (Exception ex)
         {
-            Out.WriteLine($"{_excepts}{ex.GetType().Name}{(Formatted ? Color.Reset : "")} {Name}.{caller}");
+            Out.WriteLine(
+                $"{_excepts}{ex.GetType().Name}" +
+                $"{(Formatted ? Color.Reset : "")} {Name}.{caller}");
+
             var frame = new StackTrace(ex).GetFrame(0);
-            Asserter.Assert(false, ex.GetType().Name, frame is null ? 0 : frame.GetFileLineNumber(), frame?.GetFileName() ?? "");
+            Asserter.Assert(
+                false                                        ,
+                ex.GetType().Name                            ,
+                frame is null ? 0 : frame.GetFileLineNumber(),
+                frame?.GetFileName() ?? ""                   );
+
             exs = false;
         }
 
@@ -85,7 +109,8 @@ public class Tester : IEnumerable<Assertion>
 
         Assertions.AddRange(Asserter);
 
-        if (logAmount == LogAmount.Minimal || (logAmount == LogAmount.Default && success))
+        if (logAmount == LogAmount.Minimal ||
+            (logAmount == LogAmount.Default && success))
             return success;
 
         foreach (var a in Asserter)
@@ -98,7 +123,9 @@ public class Tester : IEnumerable<Assertion>
     /// Enumerates all the assertions
     /// </summary>
     /// <returns>Assertion enumerator</returns>
-    public IEnumerator<Assertion> GetEnumerator() => Assertions.GetEnumerator();
+    public IEnumerator<Assertion> GetEnumerator()
+        => Assertions.GetEnumerator();
+
     IEnumerator IEnumerable.GetEnumerator() => Assertions.GetEnumerator();
 
     /// <summary>
@@ -107,9 +134,14 @@ public class Tester : IEnumerable<Assertion>
     /// <typeparam name="T">Type with the tests</typeparam>
     /// <param name="logAmount">How much to log</param>
     /// <param name="out">Test results output, null is stdout</param>
-    /// <param name="formatted">True if the output should be formatted, otherwise false</param>
+    /// <param name="formatted">
+    /// True if the output should be formatted, otherwise false
+    /// </param>
     /// <returns>Test with the summary</returns>
-    public static Tester Test<T>(LogAmount logAmount = LogAmount.Default, TextWriter? @out = null, bool formatted = true)
+    public static Tester Test<T>(
+        LogAmount   logAmount = LogAmount.Default,
+        TextWriter? @out      = null             ,
+        bool        formatted = true             )
         => Test(typeof(T), logAmount, @out, formatted);
 
     /// <summary>
@@ -118,19 +150,33 @@ public class Tester : IEnumerable<Assertion>
     /// <param name="test">Type with the tests</param>
     /// <param name="logAmount">How much to log</param>
     /// <param name="out">Test results output, null is stdout</param>
-    /// <param name="formatted">True if the output should be formatted, otherwise false</param>
-    /// <returns></returns>
-    public static Tester Test(Type test, LogAmount logAmount = LogAmount.Default, TextWriter? @out = null, bool formatted = true)
+    /// <param name="formatted">
+    /// True if the output should be formatted, otherwise false
+    /// </param>
+    /// <returns>The test results</returns>
+    public static Tester Test(
+        Type test,
+        LogAmount logAmount = LogAmount.Default,
+        TextWriter? @out = null,
+        bool formatted = true)
     {
         Tester t = new(test.Name, formatted);
         if (@out is not null)
             t.Out = @out;
 
-        string format = formatted ? $"[{Color.RedBg}{Color.Black}errored{Color.Reset}] {Color.Yellow}{{0}}{Color.Reset} invalid signature" : "[errored] {0} invalid sigmature";
+        string format = formatted
+            ? $"[{Color.RedBg}{Color.Black}errored{Color.Reset}]" +
+              $" {Color.Yellow}{{0}}{Color.Reset} invalid signature"
+            : "[errored] {0} invalid sigmature";
 
-        const BindingFlags bf = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
+        const BindingFlags bf =
+            BindingFlags.Public    |
+            BindingFlags.NonPublic |
+            BindingFlags.Instance  |
+            BindingFlags.Static    ;
 
-        foreach (var m in test.GetMethods(bf).Where(p => p.GetCustomAttribute<UnitTestAttribute>() is not null))
+        foreach (var m in test.GetMethods(bf).Where(
+            p => p.GetCustomAttribute<UnitTestAttribute>() is not null))
         {
             TestFunction tf;
             try
@@ -158,12 +204,17 @@ public class Tester : IEnumerable<Assertion>
     /// <param name="out">Test results output, null is stdout</param>
     /// <param name="formatted">True if the output should be formatted</param>
     /// <returns>Array of all the test results</returns>
-    public static Tester[] TestAll(LogAmount logAmount = LogAmount.Default, TextWriter? @out = null, bool formatted = true)
+    public static Tester[] TestAll(
+        LogAmount logAmount = LogAmount.Default,
+        TextWriter? @out = null,
+        bool formatted = true)
     {
-        var types = (from a in AppDomain.CurrentDomain.GetAssemblies() 
-                     from t in a.GetTypes()
-                     where t.GetCustomAttribute<UnitTestAttribute>() is not null
-                     select t).ToList();
+        var types = (
+            from a in AppDomain.CurrentDomain.GetAssemblies() 
+            from t in a.GetTypes()
+            where t.GetCustomAttribute<UnitTestAttribute>() is not null
+            select t
+        ).ToList();
 
         var tests = new Tester[types.Count];
         @out ??= Console.Out;

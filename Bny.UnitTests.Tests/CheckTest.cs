@@ -47,11 +47,11 @@ internal class CheckTest
         int value = Random.Shared.Next(ushort.MaxValue);
         var arr = TestData.Generate(100, i => i + value);
 
-        a.Assert(Check.AreSame(arr, arr, n => n % 7));
-        a.Assert(!Check.AreSame(arr[1..], arr[..^1], n => n % 7));
-        a.Assert(!Check.AreSame(arr[..^1], arr, n => n % 7));
-        a.Assert(!Check.AreSame(arr, arr[..^1], n => n % 7));
-        a.Assert(Check.AreSame(arr[7..], arr[..^7], n => n % 7));
+        a.Assert( Check.AreSame(arr       , arr      , n => n % 7));
+        a.Assert(!Check.AreSame(arr[1..  ], arr[..^1], n => n % 7));
+        a.Assert(!Check.AreSame(arr[ ..^1], arr      , n => n % 7));
+        a.Assert(!Check.AreSame(arr       , arr[..^1], n => n % 7));
+        a.Assert( Check.AreSame(arr[7..  ], arr[..^7], n => n % 7));
     }
 
     [UnitTest]
@@ -60,11 +60,11 @@ internal class CheckTest
         int value = Random.Shared.Next(ushort.MaxValue);
         var arr = TestData.Generate(100, i => i + value);
 
-        a.Assert(Check.AreSame(arr, arr, (a, b) => a == b));
-        a.Assert(!Check.AreSame(arr[1..], arr[..^1], (a, b) => a == b));
-        a.Assert(!Check.AreSame(arr[..^1], arr, (a, b) => a == b));
-        a.Assert(!Check.AreSame(arr, arr[..^1], (a, b) => a == b));
-        a.Assert(Check.AreSame(arr[7..], arr[..^7], (a, b) => a % 7 == a % 7));
+        a.Assert( Check.AreSame(arr       , arr      , (a, b) => a   == b));
+        a.Assert(!Check.AreSame(arr[1..  ], arr[..^1], (a, b) => a   == b));
+        a.Assert(!Check.AreSame(arr[ ..^1], arr      , (a, b) => a   == b));
+        a.Assert(!Check.AreSame(arr       , arr[..^1], (a, b) => a   == b));
+        a.Assert( Check.AreSame(arr[7..  ], arr[..^7], (a, b) => a%7 == b%7));
 
         var strArr = TestData.Generate(100, i => (i + value).ToString());
 

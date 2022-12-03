@@ -6,7 +6,9 @@ public class AttributeTest
     [UnitTest]
     public static void Test_UnitTestAttribute(Asserter a)
     {
-        Tester t = Tester.Test<TestClass>(@out: new StringWriter(), formatted: false);
+        Tester t = Tester.Test<TestClass>(
+            @out:      new StringWriter(),
+            formatted: false             );
 
         a.Assert(t.Count() == 7);
         a.Assert(t.Count(p => p.Success) == 3);
@@ -27,7 +29,9 @@ public class AttributeTest
         a.Assert(minlen < deflen);
         a.Assert(deflen < alllen);
 
-        t = Tester.Test<WrongTestClass>(@out: new StringWriter(), formatted: false);
+        t = Tester.Test<WrongTestClass>(
+            @out:      new StringWriter(),
+            formatted: false             );
 
         a.Assert(t.Count(p => p.Call == "WrongTestFunction") == 1);
         a.Assert(!t.Success);

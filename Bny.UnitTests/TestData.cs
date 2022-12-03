@@ -24,7 +24,10 @@ public static class TestData
     /// </summary>
     /// <typeparam name="T">Type of the data in the span</typeparam>
     /// <param name="span">Span to fill</param>
-    /// <param name="filler">Fill function, gets index of the data in the span and returns the data to add to the span</param>
+    /// <param name="filler">
+    /// Fill function, gets index of the data in the span
+    /// and returns the data to add to the span
+    /// </param>
     public static void Fill<T>(Span<T> span, Func<int, T> filler)
     {
         for (int i = 0; i < span.Length; ++i)
@@ -46,11 +49,15 @@ public static class TestData
     }
 
     /// <summary>
-    /// Creates array of the given type and fills it with values supplied by a filler function
+    /// Creates array of the given type and fills it with values supplied by a
+    /// filler function
     /// </summary>
     /// <typeparam name="T">Type of the values in the array</typeparam>
     /// <param name="length">Size of the array</param>
-    /// <param name="filler">Fill function, gets index of the fata in the array and returns the data to add to the array</param>
+    /// <param name="filler">
+    /// Fill function, gets index of the fata in the
+    /// array and returns the data to add to the array
+    /// </param>
     /// <returns>New array filled with the filler function</returns>
     public static T[] Generate<T>(int length, Func<int, T> filler)
     {
@@ -64,10 +71,17 @@ public static class TestData
     /// </summary>
     /// <typeparam name="T">Type of the number in the span</typeparam>
     /// <param name="span">Span to fill</param>
-    /// <param name="seed">Random number generator seed, 0 for random seed</param>
+    /// <param name="seed">
+    /// Random number generator seed, 0 for random seed
+    /// </param>
     /// <param name="min">Lower boundry of numbers to generate</param>
     /// <param name="max">Upper boundry of numbers to generate</param>
-    public static void FillRngInt<T>(Span<T> span, int seed = 0, long min = 0, long max = long.MaxValue) where T : INumberBase<T>, IMinMaxValue<T>
+    public static void FillRngInt<T>(
+        Span<T> span                ,
+        int     seed = 0            ,
+        long    min  = 0            ,
+        long    max  = long.MaxValue)
+        where T : INumberBase<T>, IMinMaxValue<T>
     {
         if (max == long.MaxValue)
             max = long.CreateTruncating(T.MaxValue);
@@ -81,10 +95,16 @@ public static class TestData
     /// </summary>
     /// <typeparam name="T">Type of the values in the span</typeparam>
     /// <param name="span">Span to fill</param>
-    /// <param name="seed">Seed of the random generator, 0 means random seed</param>
+    /// <param name="seed">
+    /// Seed of the random generator, 0 means random seed
+    /// </param>
     /// <param name="min">Lower boundary of the numbers to generate</param>
     /// <param name="max">Upper boundary of the numbers to generate</param>
-    public static void FillRngFloat<T>(Span<T> span, int seed = 0, double min = 0, double max = 1) where T : INumberBase<T>
+    public static void FillRngFloat<T>(
+        Span<T> span    ,
+        int     seed = 0,
+        double  min  = 0,
+        double  max  = 1) where T : INumberBase<T>
     {
         Random r = seed == 0 ? Random.Shared : new Random(seed);
         var range = Math.Abs(max - min);
@@ -101,7 +121,11 @@ public static class TestData
     /// <param name="min">Lower boundary of the generated values</param>
     /// <param name="max">Upper boundary of the generated values</param>
     /// <returns>New array with random integers</returns>
-    public static T[] GenerateRngInt<T>(int length, int seed = 0, long min = 0, long max = long.MaxValue) where T : INumberBase<T>, IMinMaxValue<T>
+    public static T[] GenerateRngInt<T>(
+        int  length              ,
+        int  seed = 0            ,
+        long min  = 0            ,
+        long max  = long.MaxValue) where T : INumberBase<T>, IMinMaxValue<T>
     {
         T[] arr = new T[length];
         FillRngInt<T>(arr, seed, min, max);
@@ -117,7 +141,11 @@ public static class TestData
     /// <param name="min">Lower boundary of the generated values</param>
     /// <param name="max">Upper boundary of the generated values</param>
     /// <returns>new array with random floating point values</returns>
-    public static T[] GenerateRngFloat<T>(int length, int seed = 0, double min = 0, double max = 1) where T : INumberBase<T>
+    public static T[] GenerateRngFloat<T>(
+        int    length  ,
+        int    seed = 0,
+        double min  = 0,
+        double max  = 1) where T : INumberBase<T>
     {
         T[] arr = new T[length];
         FillRngFloat<T>(arr, seed, min, max);

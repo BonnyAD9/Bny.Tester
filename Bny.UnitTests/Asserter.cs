@@ -22,16 +22,22 @@ public class Asserter : IEnumerable<Assertion>
     /// Asserts the given statment and saves info about the assertion
     /// </summary>
     /// <param name="assertion">The assertion</param>
-    /// <param name="call">The assertion string, this is set automatically</param>
-    /// <param name="lineNumber">Line number of the assertion, this is set automatically</param>
-    /// <param name="file">File in which the assertion is, this is set automatically</param>
+    /// <param name="call">The assertion string, this is set
+    /// automatically</param>
+    /// <param name="lineNumber">Line number of the assertion, this is set
+    /// automatically</param>
+    /// <param name="file">File in which the assertion is, this is set
+    /// automatically</param>
     [EditorBrowsable]
-    public void Assert(bool assertion,
-        [CallerArgumentExpression(nameof(assertion))] string call = "",
-        [CallerLineNumber] int lineNumber = 0,
-        [CallerFilePath] string file = "")
+    public void Assert(                               bool   assertion      ,
+        [CallerArgumentExpression(nameof(assertion))] string call       = "",
+        [CallerLineNumber]                            int    lineNumber = 0 ,
+        [CallerFilePath]                              string file       = "")
     {
-        Assertions.Add(new(assertion, call, lineNumber, file) { Caller = Caller });
+        Assertions.Add(
+            new(assertion, call, lineNumber, file) { Caller = Caller }
+        );
+
         Success &= assertion;
     }
 
@@ -47,6 +53,8 @@ public class Asserter : IEnumerable<Assertion>
     /// Gets the enumerator to enumerate the assertions
     /// </summary>
     /// <returns>Enumerator for the assertions</returns>
-    public IEnumerator<Assertion> GetEnumerator() => Assertions.GetEnumerator();
+    public IEnumerator<Assertion> GetEnumerator()
+        => Assertions.GetEnumerator();
+
     IEnumerator IEnumerable.GetEnumerator() => Assertions.GetEnumerator();
 }

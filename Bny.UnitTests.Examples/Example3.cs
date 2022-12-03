@@ -1,7 +1,8 @@
 ﻿namespace Bny.UnitTests.Examples;
 
 /// <summary>
-/// This example shows how to mark classes with tests and run all the tests at once
+/// This example shows how to mark classes with tests and run all
+/// the tests at once
 /// </summary>
 internal class Example3
 {
@@ -43,10 +44,16 @@ internal class Example3
         [UnitTest]
         static void Test_BubbleSort_Stable(Asserter a)
         {
-            (int Num, char Char)[] arr = new[] { (1, 'a'), (6, 'b'), (10, 'c'), (2, 'd'), (5, 'e'), (6, 'f'), (9, 'g'), (2, 'h') };
+            (int Num, char Char)[] arr = new[]
+            {
+                (1, 'a'), (6, 'b'), (10, 'c'), (2, 'd'),
+                (5, 'e'), (6, 'f'), (9 , 'g'), (2, 'h'),
+            };
 
             // run the function
-            ArrayOperations.BubbleSort<(int Num, char Char)>(arr, (a, b) => a.Num - b.Num);
+            ArrayOperations.BubbleSort<(int Num, char Char)>(
+                arr                    ,
+                (a, b) => a.Num - b.Num);
 
             a.Assert(arr[1].Char == 'd' && arr[2].Char == 'h');
             a.Assert(arr[5].Char == 'b' && arr[6].Char == 'f');

@@ -20,7 +20,9 @@ internal class ArrayOperations
         {
             for (int j = 1; j < arr.Length - i; j++)
             {
-                if (comparer(arr[j - 1], arr[j]) >= 0) // this is a bug, the algorithm is not stable (there should be '>' instead of '>=')
+                // this is a bug, the algorithm is not stable
+                // (there should be '>' instead of '>=')
+                if (comparer(arr[j - 1], arr[j]) >= 0)
                     (arr[j - 1], arr[j]) = (arr[j], arr[j - 1]);
             }
         }
@@ -32,7 +34,8 @@ internal class ArrayOperations
     /// <typeparam name="T">type in the array</typeparam>
     /// <param name="arr">array to search</param>
     /// <param name="item">item to find</param>
-    /// <returns>index of the item in the array, -1 if the item is not in the array</returns>
+    /// <returns>index of the item in the array, -1 if the item is not in the
+    /// array</returns>
     public static int BinarySearch(Span<int> arr, int item, int offset = 0)
     {
         if (arr.Length == 0)

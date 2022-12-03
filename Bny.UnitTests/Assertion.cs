@@ -35,8 +35,12 @@ public readonly struct Assertion : IFormattable
     /// </summary>
     /// <param name="success">The assertion value</param>
     /// <param name="call">What was asserted</param>
-    /// <param name="lineNumber">Line number of the assertion, 0 if unknown</param>
-    /// <param name="file">File in which the assertion is, empty if unknown</param>
+    /// <param name="lineNumber">
+    /// Line number of the assertion, 0 if unknown
+    /// </param>
+    /// <param name="file">
+    /// File in which the assertion is, empty if unknown
+    /// </param>
     public Assertion(bool success, string call, int lineNumber, string file)
     {
         Success = success;
@@ -54,11 +58,15 @@ public readonly struct Assertion : IFormattable
         : $"[failure] {Call} (in {File}:{LineNumber}::)";
 
     /// <inheritdoc/>
-    public string ToString(string? format, IFormatProvider? formatProvider) => format switch
+    public string ToString(string? format, IFormatProvider? formatProvider)
+        => format switch
     {
         "F" => Success
-            ? $"[{Color.Green}success{Color.Reset}] {Color.Yellow}{Call}{Color.Reset}"
-            : $"[{Color.Red}failure{Color.Reset}] {Color.Yellow}{Call}{Color.Reset} (in {File}:{LineNumber}::)",
-        _ => ToString()
+            ? $"[{Color.Green}success{Color.Reset}]" +
+              $" {Color.Yellow}{Call}{Color.Reset}"
+            : $"[{Color.Red}failure{Color.Reset}]"   +
+              $" {Color.Yellow}{Call}{Color.Reset}"  +
+              $" (in {File}:{LineNumber}::)",
+        _ => ToString(),
     };
 }

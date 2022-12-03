@@ -74,9 +74,9 @@ internal class TestDataTest
         TestData.FillRngInt<int>(arr1, seed, min, max);
         TestData.FillRngInt<int>(arr2, seed, min, max);
 
-        bool isInRange = true;
-        bool isNotAllSame = false;
-        bool sameSeedSameValues = true;
+        bool isInRange          = true ;
+        bool isNotAllSame       = false;
+        bool sameSeedSameValues = true ;
 
         for (int i = 0; i < arr1.Length; ++i)
         {
@@ -102,9 +102,9 @@ internal class TestDataTest
         TestData.FillRngInt<int>(arr1, min: min, max: max);
         TestData.FillRngInt<int>(arr2, min: min, max: max);
 
-        bool isInRange = true;
-        bool isNotAllSame = false;
-        bool noSeedDefferentValues = true;
+        bool isInRange             = true ;
+        bool isNotAllSame          = false;
+        bool noSeedDefferentValues = true ;
 
         for (int i = 0; i < arr1.Length; ++i)
         {
@@ -122,7 +122,8 @@ internal class TestDataTest
     public static void Test_FillRngFloat_Seed(Asserter a)
     {
         int seed = Random.Shared.Next();
-        double min = (Random.Shared.NextDouble() - 0.5) * 2.0 * ushort.MaxValue;
+        double min =
+            (Random.Shared.NextDouble() - 0.5) * 2.0 * ushort.MaxValue;
         double max = min + Random.Shared.NextDouble() * ushort.MaxValue;
 
         var arr1 = new float[100];
@@ -131,9 +132,9 @@ internal class TestDataTest
         TestData.FillRngFloat<float>(arr1, seed, min, max);
         TestData.FillRngFloat<float>(arr2, seed, min, max);
 
-        bool isInRange = true;
-        bool isNotAllSame = false;
-        bool sameSeedSameValues = true;
+        bool isInRange          = true ;
+        bool isNotAllSame       = false;
+        bool sameSeedSameValues = true ;
 
         for (int i = 0; i < arr1.Length; ++i)
         {
@@ -150,7 +151,8 @@ internal class TestDataTest
     [UnitTest]
     public static void Test_FillRngFloat_NoSeed(Asserter a)
     {
-        double min = (Random.Shared.NextDouble() - 0.5) * 2.0 * ushort.MaxValue;
+        double min =
+            (Random.Shared.NextDouble() - 0.5) * 2.0 * ushort.MaxValue;
         double max = min + Random.Shared.NextDouble() * ushort.MaxValue;
 
         var arr1 = new float[100];
@@ -159,9 +161,9 @@ internal class TestDataTest
         TestData.FillRngFloat<float>(arr1, min: min, max: max);
         TestData.FillRngFloat<float>(arr2, min: min, max: max);
 
-        bool isInRange = true;
-        bool isNotAllSame = false;
-        bool noSeedDifferentValues = true;
+        bool isInRange             = true ;
+        bool isNotAllSame          = false;
+        bool noSeedDifferentValues = true ;
 
         for (int i = 0; i < arr1.Length; ++i)
         {
@@ -185,9 +187,9 @@ internal class TestDataTest
         var arr1 = TestData.GenerateRngInt<int>(100, seed, min, max);
         var arr2 = TestData.GenerateRngInt<int>(100, seed, min, max);
 
-        bool isInRange = true;
-        bool isNotAllSame = false;
-        bool sameSeedSameValues = true;
+        bool isInRange          = true ;
+        bool isNotAllSame       = false;
+        bool sameSeedSameValues = true ;
 
         for (int i = 0; i < arr1.Length; ++i)
         {
@@ -210,9 +212,9 @@ internal class TestDataTest
         var arr1 = TestData.GenerateRngInt<int>(100, min: min, max: max);
         var arr2 = TestData.GenerateRngInt<int>(100, min: min, max: max);
 
-        bool isInRange = true;
-        bool isNotAllSame = false;
-        bool noSeedDefferentValues = true;
+        bool isInRange             = true ;
+        bool isNotAllSame          = false;
+        bool noSeedDefferentValues = true ;
 
         for (int i = 0; i < arr1.Length; ++i)
         {
@@ -236,9 +238,9 @@ internal class TestDataTest
         var arr1 = TestData.GenerateRngFloat<float>(100, seed, min, max);
         var arr2 = TestData.GenerateRngFloat<float>(100, seed, min, max);
 
-        bool isInRange = true;
-        bool isNotAllSame = false;
-        bool sameSeedSameValues = true;
+        bool isInRange          = true ;
+        bool isNotAllSame       = false;
+        bool sameSeedSameValues = true ;
 
         for (int i = 0; i < arr1.Length; ++i)
         {
@@ -262,9 +264,9 @@ internal class TestDataTest
         var arr2 = TestData.GenerateRngFloat<float>(100, min: min, max: max);
 
 
-        bool isInRange = true;
-        bool isNotAllSame = false;
-        bool noSeedDifferentValues = true;
+        bool isInRange             = true ;
+        bool isNotAllSame          = false;
+        bool noSeedDifferentValues = true ;
 
         for (int i = 0; i < arr1.Length; ++i)
         {
